@@ -5,10 +5,12 @@ document.addEventListener('DOMContentLoaded', function () {
     generateBtn.addEventListener('click', function () {
         const randomKey = generateRandomKey();
         keyOutput.value = randomKey;
+        generateBtn.style.display = 'none';
+        keyOutput.style.height = '150px';
+        keyOutput.style.marginTop = '0';
     });
 
     function generateRandomKey() {
-        // This is a simple example. In a real-world scenario, use a secure method to generate keys.
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         const keyLength = 16;
         let randomKey = 'Creal - ' + '';
