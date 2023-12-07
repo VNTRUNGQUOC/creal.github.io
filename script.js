@@ -83,13 +83,13 @@ document.querySelector(".btn").addEventListener("click", (e) => {
     if (passwords == null) {
         let json = []
         json.push({website: website.value, username: username.value, password: password.value })
-        alert("Password Saved");
+        alert("Password Saved!");
         localStorage.setItem("passwords", JSON.stringify(json))
     }
     else {
         let json = JSON.parse(localStorage.getItem("passwords"))
         json.push({ website: website.value, username: username.value, password: password.value })
-        alert("Password Saved");
+        alert("Password Saved!");
         localStorage.setItem("passwords", JSON.stringify(json))
     }
     showPasswords()
