@@ -1,25 +1,29 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const generateBtn = document.getElementById('generateBtn');
     const keyOutput = document.getElementById('keyOutput');
 
-    generateBtn.addEventListener('click', function () {
-        const randomKey = generateRandomKey();
-        keyOutput.value = randomKey;
-        generateBtn.style.display = 'none';
-        keyOutput.style.height = '150px'; // Adjust the height as needed
-        keyOutput.style.marginTop = '0'; // Remove the top margin
-    });
+	function generateRandomKey(prefix = "Creal - ", keyLength = 32) {
+		const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	  
+		const randomBytes = crypto.getRandomValues(new Uint32Array(keyLength));
+	  
+		const randomKey = Array.from(randomBytes).map((byte) => characters[Math.floor(byte / (0xffffffff / characters.length))]).join("");
+	  
+		return prefix + randomKey;
+	  }
+	  
 
-    function generateRandomKey() {
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        const keyLength = 20;
-        let randomKey = 'Creal - ' + '';
-
-        for (let i = 0; i < keyLength; i++) {
-            const randomIndex = Math.floor(Math.random() * characters.length);
-            randomKey += characters.charAt(randomIndex);
-        }
-
-        return randomKey;
+    function copyToClipboard() {
+        const keyText = keyOutput.innerText;
+        const tempTextArea = document.createElement('textarea');
+        tempTextArea.value = keyText;
+        document.body.appendChild(tempTextArea);
+        tempTextArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempTextArea);
+        alert('Key copied to clipboard!');
     }
+
+    // Generate a key when the page loads
+    const initialKey = generateRandomKey();
+    keyOutput.innerText = initialKey;
 });
