@@ -7,6 +7,9 @@ function sendMessage() {
     displayMessage('user', userMessage);
     userInput.value = '';
 
+    // Display loading indicator
+    displayMessage('bot', '...');
+
     // Call OpenAI API to get the model's response
     fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
         method: 'POST',
@@ -27,7 +30,11 @@ function sendMessage() {
     })
     .then(data => {
         const botMessage = data.choices[0].text.trim();
-        displayMessage('bot', botMessage);
+
+        // Simulate a delay before displaying the bot's message
+        setTimeout(() => {
+            displayMessage('bot', botMessage);
+        }, 1000); // Adjust the delay time as needed
     })
     .catch(error => {
         console.error('Error:', error);

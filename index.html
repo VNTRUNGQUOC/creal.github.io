@@ -4,81 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatGPT Chatbot</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f8f9fa;
-        }
-
-        #chat-container {
-            width: 400px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        #chat-display {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 20px;
-            box-sizing: border-box;
-            background-color: #f8f9fa;
-        }
-
-        .message {
-            margin-bottom: 15px;
-            padding: 12px;
-            border-radius: 8px;
-            max-width: 80%;
-            word-wrap: break-word;
-        }
-
-        .user {
-            background-color: #007bff;
-            color: #fff;
-            align-self: flex-end;
-        }
-
-        .bot {
-            background-color: #28a745;
-            color: #fff;
-            align-self: flex-start;
-        }
-
-        #user-input {
-            padding: 10px;
-            box-sizing: border-box;
-            border: 1px solid #ced4da;
-            border-radius: 0 0 8px 8px;
-            outline: none;
-        }
-
-        #send-button {
-            padding: 10px;
-            box-sizing: border-box;
-            border: none;
-            background-color: #007bff;
-            color: #fff;
-            border-radius: 0 0 8px 8px;
-            cursor: pointer;
-            outline: none;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="chat-container">
         <div id="chat-display"></div>
-        <input type="text" id="user-input" placeholder="Type your message...">
-        <button id="send-button" onclick="sendMessage()">Send</button>
+        <div class="user-input-container">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button id="send-button" onclick="sendMessage()">Send</button>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
