@@ -1,4 +1,4 @@
-const OPENAI_API_KEY = 'YOUR_OPENAI_API_KEY'; // Replace with your actual API key
+const OPENAI_API_KEY = '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'; // Replace with your actual API key
 const chatDisplay = document.getElementById('chat-display');
 const userInput = document.getElementById('user-input');
 
