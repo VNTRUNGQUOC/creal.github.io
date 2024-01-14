@@ -1,4 +1,4 @@
-const OPENAI_API_KEY = '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'; // Replace with your actual API key
+const OPENAI_API_KEY = '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 '; // Replace with your actual API key
 const chatDisplay = document.getElementById('chat-display');
 const userInput = document.getElementById('user-input');
 
@@ -38,7 +38,7 @@ function sendMessage() {
     })
     .catch(error => {
         console.error('Error:', error);
-        displayMessage('bot', 'Sorry, an error occurred while processing your request.');
+        displayMessage('bot', `Error: ${error.message}`);
     });
 }
 
