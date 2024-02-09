@@ -1,50 +1,34 @@
-const OPENAI_API_KEY = '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 '; // Replace with your actual API key
-const chatDisplay = document.getElementById('chat-display');
-const userInput = document.getElementById('user-input');
+$(document).ready(function() {
+    const form = $('#chat-form');
+    const chatHistory = $('#chat-history');
 
-function sendMessage() {
-    const userMessage = userInput.value;
-    displayMessage('user', userMessage);
-    userInput.value = '';
+    form.submit(function(event) {
+        event.preventDefault();
+        const message = $('#message').val();
+        $('#message').val(''); // Clear input
 
-    // Display loading indicator
-    displayMessage('bot', '...');
+        displayMessage('user', message);
 
-    // Call OpenAI API to get the model's response
-    fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${OPENAI_API_KEY}`
-        },
-        body: JSON.stringify({
-            prompt: userMessage,
-            max_tokens: 150
+        fetch('/get_response', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ message: message })
         })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        const botMessage = data.choices[0].text.trim();
-
-        // Simulate a delay before displaying the bot's message
-        setTimeout(() => {
-            displayMessage('bot', botMessage);
-        }, 1000); // Adjust the delay time as needed
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        displayMessage('bot', `Error: ${error.message}`);
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                displayMessage('error', data.error);
+            } else {
+                displayMessage('bot', data.response);
+            }
+        })
+        .catch(error => {
+            displayMessage('error', 'Error communicating with chatbot.');
+        });
     });
-}
 
-function displayMessage(sender, message) {
-    const messageElement = document.createElement('div');
-    messageElement.classList.add('message', sender);
-    messageElement.innerText = message;
-    chatDisplay.appendChild(messageElement);
-}
+    function displayMessage(type, message) {
+        chatHistory.append(`<li class="${type}">${message}</li>`);
+        chatHistory.scrollTop(chatHistory[0].scrollHeight); // Scroll to bottom
+    }
+});
